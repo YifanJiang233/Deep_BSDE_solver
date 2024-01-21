@@ -4,7 +4,14 @@
 
 This package provides a solver for the following FBSDE:
 
-![FBSDE](https://render.githubusercontent.com/render/math?math=%5Cleft%5C%7B+%5Cbegin%7Baligned%7D+X_%7Bt%7D+%26+%3D+x+%2B+%5Cint_%7B0%7D%5E%7Bt%7Db%28s%2CX_%7Bs%7D%2CY_%7Bs%7D%29%5C%2C%5Cmathrm%7Bd%7D+s%2B+%5Cint_%7B0%7D%5E%7Bt%7D%5Clangle%5Csigma%28s%2CX_%7Bs%7D%29%2C%5Cmathrm%7Bd%7D+W_%7Bs%7D%5Crangle+%5C%5C+Y_%7Bt%7D+%26+%3Dg%28X_%7BT%7D%29%2B%5Cint_%7Bt%7D%5E%7BT%7Df%28s%2CX_%7Bs%7D%2CY_%7Bs%7D%2CZ_%7Bs%7D%29%5C%2C%5Cmathrm%7Bd%7D+s-%5Cint_%7Bt%7D%5E%7BT%7D%5Clangle+Z_%7Bs%7D%2C%5Cmathrm%7Bd%7D+W_%7Bs%7D%5Crangle+%5Cend%7Baligned%7D+%5Cright.)
+$$
+ \left\{
+    \begin{aligned}
+        X_{t} & = x + \int_{0}^{t}b(s,X_{s},Y_{s})\mathop{}\mathrm{d} s+ \int_{0}^{t}\langle\sigma(s,X_{s}),\mathop{}\mathrm{d} W_{s}\rangle \\
+        Y_{t} & =g(X_{T})+\int_{t}^{T}f(s,X_{s},Y_{s},Z_{s})\mathop{}\mathrm{d} s-\int_{t}^{T}\langle Z_{s},\mathop{}\mathrm{d} W_{s}\rangle.
+    \end{aligned}
+    \right.
+$$
 
 `solver.py` contains the neural network based on the Deep BSDE method [1].
 
@@ -14,15 +21,14 @@ One can easily apply this solver to other FBSDEs by redefining the coefficients 
 
 It is important to notice that the output of the coefficient should be defined in an appropriate size.
 Here, we list the corresponding size as follows.
-
 | Coefficient |        Output Size         |
 | :---------: | :------------------------: |
-|     *b*     |    [batch_size, dim_x]     |
-|     *σ*     | [batch_size, dim_x, dim_d] |
-|     *f*     |    [batch_size, dim_y]     |
-|     *g*     |    [batch_size, dim_y]     |
+|     $b$     |    [batch_size, dim_x]     |
+|  $\sigma$   | [batch_size, dim_x, dim_d] |
+|     $f$     |    [batch_size, dim_y]     |
+|     $g$     |    [batch_size, dim_y]     |
 
-The training data will be saved in `loss_data.npy` and `y0_data.npy` which record the loss ![loss](https://render.githubusercontent.com/render/math?math=%24%5Cmathbb%7BE%7D%5Bg%28X_%7BT%7D%29-Y_%7BT%7D%5D%5E%7B2%7D%24) and the initial value ![initial_value](https://render.githubusercontent.com/render/math?math=%24y_0%24) after each iteration.
+The training data will be saved in `loss_data.npy` and `y0_data.npy` which record the loss $\mathbb{E}[g(X_{T})-Y_{T}]^{2}$ and the initial value $y_0$ after each iteration.
 
 ## Dependencies
 
