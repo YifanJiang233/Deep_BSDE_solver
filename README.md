@@ -3,17 +3,16 @@
 ## Usage
 
 This package provides a solver for the following FBSDE:
-
-$$
+```math
  \left\{
     \begin{aligned}
         X_{t} & = x + \int_{0}^{t}b(s,X_{s},Y_{s})\mathop{}\mathrm{d} s+ \int_{0}^{t}\langle\sigma(s,X_{s}),\mathop{}\mathrm{d} W_{s}\rangle \\
         Y_{t} & =g(X_{T})+\int_{t}^{T}f(s,X_{s},Y_{s},Z_{s})\mathop{}\mathrm{d} s-\int_{t}^{T}\langle Z_{s},\mathop{}\mathrm{d} W_{s}\rangle.
     \end{aligned}
     \right.
-$$
+```
 
-`solver.py` contains the neural network based on the Deep BSDE method [1].
+`solver.py` contains the main solver based on the Deep BSDE method proposed in [1].
 
 `cir_bond.py` and `multi_cir_bond.py` are codes for the examples in [2].
 
@@ -39,4 +38,4 @@ The training data will be saved in `loss_data.npy` and `y0_data.npy` which recor
 
 [1] E, W., Han, J., and Jentzen, A. Deep learning-based numerical methods for high-dimensional parabolic partial differential equations and backward stochastic differential equations, Communications in Mathematics and Statistics, 5, 349–380 (2017).
 
-[2] Jiang,Y., Li, J. Convergence of the deep bsde method for fbsdes with non-lipschitz coefficients.
+[2] Jiang, Y., Li, J. Convergence of the deep BSDE method for FBSDEs with non-lipschitz coefficients, Probability, Uncertainty and Quantitative Risk, 6 (4), 391-408 (2021).
